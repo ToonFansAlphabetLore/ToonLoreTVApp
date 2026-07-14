@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToonLore TV - 24/7 Live ToonLore Alphabet Lore</title>
+    <!-- Video.js Styles -->
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <style>
+        /* Base page styling with your clean gradient background */
+        body {
+            /* Vibrant, deep dark gradient */
+            background: linear-gradient(135deg, #150f22 0%, #090710 50%, #030205 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* Logo Styling */
+        .logo {
+            max-width: 180px;
+            max-height: 120px;
+            height: auto;
+            margin-bottom: 15px;
+            object-fit: contain;
+            /* Gives transparent logos a beautiful, subtle glow */
+            filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.3));
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            color: #b0a8c0;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* Container wrapper for the player with a subtle glow border */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #000;
+        }
+
+        /* Customizes the video-js player size and mobile ratio */
+        .video-js {
+            width: 100% !important;
+            height: auto !important;
+            aspect-ratio: 16/9;
+        }
+
+        /* The Live indicator badge in the top-left corner of video */
+        .live-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, #ff0055 0%, #ff00c8 100%);
+            color: white;
+            padding: 6px 12px;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 12px rgba(255, 0, 85, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        /* Makes the red "Live" badge glow and pulse gently */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 12px rgba(255, 0, 85, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 4px 20px rgba(255, 0, 85, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 4px 12px rgba(255, 0, 85, 0.4); }
+        }
+
+        /* Stylizing the play button on the VideoJS player */
+        .vjs-big-play-button {
+            background-color: rgba(0, 255, 204, 0.2) !important;
+            border: 2px solid #00ffcc !important;
+            color: #00ffcc !important;
+            width: 80px !important;
+            height: 80px !important;
+            line-height: 76px !important;
+            border-radius: 50% !important;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4) !important;
+            transition: all 0.2s ease-in-out !important;
+        }
+
+        .video-js:hover .vjs-big-play-button {
+            background-color: #00ffcc !important;
+            color: #000000 !important;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.8) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Replace logo.png with your actual logo file name -->
+        <img src="logo.png" alt="ToonLore Logo" class="logo">
+        
+        <h1>ToonLore TV</h1>
+        <p>Your 24/7 ToonLore network!. Broadcasting live!</p>
+
+        <div class="video-wrapper">
+            <div class="live-badge">Live</div>
+            <video 
+                id="toonlore-player" 
+                class="video-js vjs-default-skin vjs-big-play-centered" 
+                controls 
+                preload="auto" 
+                playsinline
+                data-setup='{}'>
+                <!-- Pointing directly to your active Localtunnel link -->
+                <source src="https://toonlore.loca.lt/channels/1.m3u8" type="application/x-mpegURL">
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that supports HTML5 video.
+                </p>
+            </video>
+        </div>
+    </div>
+
+    <!-- Video.js Player Scripts -->
+    <script src="https://vjs.zencdn.net/8.10.0/video.js"></script>
+</body>
+</html>
