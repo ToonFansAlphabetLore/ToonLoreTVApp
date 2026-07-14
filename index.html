@@ -153,5 +153,26 @@
 
     <!-- Video.js Player Scripts -->
     <script src="https://vjs.zencdn.net/8.10.0/video.js"></script>
+    <script>
+        var player = videojs('toonlore-player');
+
+        // This force-injects the required headers and bypasses CORS-like issues
+        videojs.Vhs.xhr.beforeRequest = function(options) {
+            options.headers = options.headers || {};
+            options.headers['Bypass-Tunnel-Reminder'] = 'true';
+            // Some browsers need this to handle the cross-origin requests
+            options.withCredentials = false; 
+            return options;
+        };
+
+        // Increase buffer to handle the unstable Wi-Fi/Tunnel connection
+        player.ready(function() {
+            this.tech().hls.xhr.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 0) {
+                    console.error("Connection blocked - check network/tunnel");
+                }
+            };
+        });
+    </script>
 </body>
 </html>
