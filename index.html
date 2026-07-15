@@ -397,8 +397,14 @@ h1 {
 }
 </style>
 
-    <script data-goatcounter="https://toonloretv.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+<script>
+    // Tell GoatCounter to count localhost/local dev hits
+    window.goatcounter = {
+        allow_local: true
+    };
+</script>
+<script data-goatcounter="https://toonloretv.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
     
 </head>
 <body style="background-image: url('background.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; margin: 0; padding: 0;">
