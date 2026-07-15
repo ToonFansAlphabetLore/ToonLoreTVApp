@@ -1,0 +1,47 @@
+# -----------------------------------------------------------------
+# ALLOW GOOGLE SEARCH INDEXING
+# -----------------------------------------------------------------
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# -----------------------------------------------------------------
+# BLOCK AI TRAINING & SCRAPING BOTS (THE BANDWIDTH DRAINS)
+# -----------------------------------------------------------------
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+# -----------------------------------------------------------------
+# ALLOW AI SEARCH CITATION BOTS (ONLY IF THEY SEND TRAFFIC TO YOU)
+# -----------------------------------------------------------------
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
