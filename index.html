@@ -33,6 +33,40 @@
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <style>
 
+/* ================================================================= */
+/* THEATER MODE STATES                                               */
+/* ================================================================= */
+
+/* Black out the background of the entire page */
+body.theater-active {
+  background-color: #050505 !important;
+}
+
+/* Targeting your video player container.
+  (If your main video div uses a different class/ID, swap '.video-container' here)
+*/
+body.theater-active .video-container {
+  max-width: 100% !important;
+  width: 100vw !important;
+  height: 70vh !important; /* Cinematic height */
+  margin-top: 0 !important;
+  border-radius: 0 !important; /* Strips rounded edges for a screen-filling look */
+}
+
+/* Dim non-essential elements like headers/footers/chats to 15% opacity */
+body.theater-active header,
+body.theater-active .chat-container,
+body.theater-active footer {
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+}
+
+/* If the user hovers over dimmed elements, bring them back to full brightness */
+body.theater-active .chat-container:hover,
+body.theater-active header:hover {
+  opacity: 1;
+}
+        
 /* Gear Button Placement */
 .settings-gear-btn {
     position: fixed;
@@ -382,6 +416,14 @@ h1 {
         </div>
 
         <div class="setting-item">
+            <span class="setting-label">Theater Mode</span>
+            <label class="switch">
+                <input type="checkbox" id="theaterModeToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <div class="setting-item">
             <span class="setting-label">Support the Channel</span>
             <a href="https://www.youtube.com/@TheToonLoreArchive?sub_confirmation=1" target="_blank" class="yt-sub-btn">
                 🔴 Subscribe on YouTube
@@ -566,20 +608,56 @@ window.onclick = function(event) {
     }
 }
 
-// Check for saved Lights Out preference on page load
-if (localStorage.getItem('lightsOut') === 'enabled') {
-    document.body.classList.add('lights-out');
-    darkModeToggle.checked = true;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. LIGHTS OUT MODE
+    const darkModeToggle = document.getElementById('darkModeToggle');
 
-// Toggle Lights Out Mode
-darkModeToggle.addEventListener('change', () => {
-    if (darkModeToggle.checked) {
+    // Check for saved Lights Out preference on page load
+    if (localStorage.getItem('lightsOut') === 'enabled') {
         document.body.classList.add('lights-out');
-        localStorage.setItem('lightsOut', 'enabled');
-    } else {
-        document.body.classList.remove('lights-out');
-        localStorage.setItem('lightsOut', 'disabled');
+        if (darkModeToggle) darkModeToggle.checked = true;
+    }
+
+    // Toggle Lights Out Mode
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                document.body.classList.add('lights-out');
+                localStorage.setItem('lightsOut', 'enabled');
+            } else {
+                document.body.classList.remove('lights-out');
+                localStorage.setItem('lightsOut', 'disabled');
+            }
+        });
+    }
+
+    // 2. THEATER MODE
+    const theaterToggle = document.getElementById('theaterModeToggle');
+    
+    // Check local storage for existing preference
+    const theaterPreference = localStorage.getItem('theaterMode') === 'true';
+    if (theaterToggle) theaterToggle.checked = theaterPreference;
+    
+    if (theaterPreference) {
+        document.body.classList.add('theater-active');
+    }
+
+    // Toggle theater mode and save setting
+    if (theaterToggle) {
+        theaterToggle.addEventListener('change', () => {
+            if (theaterToggle.checked) {
+                document.body.classList.add('theater-active');
+                localStorage.setItem('theaterMode', 'true');
+            } else {
+                document.body.classList.remove('theater-active');
+                localStorage.setItem('theaterMode', 'false');
+            }
+            
+            // Forces the Video.js player to resize and fit the theater layout instantly
+            if (window.dispatchEvent) {
+                window.dispatchEvent(new Event('resize'));
+            }
+        });
     }
 });
     </script>
